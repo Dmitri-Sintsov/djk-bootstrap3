@@ -49,7 +49,7 @@ setup(
     author_email='questpc256@gmail.com',
     url='https://github.com/Dmitri-Sintsov/djk-bootstrap3',
     packages=[
-        'djk-bootstrap3',
+        'djk_ui',
     ],
     include_package_data=True,
     install_requires=install_reqs,
