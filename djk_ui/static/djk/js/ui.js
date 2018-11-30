@@ -16,6 +16,8 @@ void function(TransformTags) {
             'CARD-DARK': TransformTags.bsPanel,
             'CARD-HEADER': TransformTags.bsPanelHeading,
             'CARD-BODY': TransformTags.bsPanelBody,
+            'CARD-FOOTER': TransformTags.bsPanelFooter,
+            'CARD-TITLE': TransformTags.bsPanelTitle,
         });
     };
 
@@ -41,7 +43,19 @@ void function(TransformTags) {
         return this.toTag(elem, 'div', 'panel-body');
     };
 
+    TransformTags.bsPanelFooter = function(elem, tagName) {
+        return this.toTag(elem, 'div', 'panel-footer');
+    };
+
+    TransformTags.bsPanelTitle = function(elem, tagName) {
+        return this.toTag(elem, 'div', 'panel-title');
+    };
+
 }(App.TransformTags.prototype);
 
 App.transformTags = new App.TransformTags();
+
+App.ui = {
+    cardTitleSelector: '.panel-title:first',
+};
 
