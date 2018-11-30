@@ -14,21 +14,26 @@ void function(TransformTags) {
             'CARD-SECONDARY': TransformTags.bsPanel,
             'CARD-LIGHT': TransformTags.bsPanel,
             'CARD-DARK': TransformTags.bsPanel,
+            'CARD-HEADER': TransformTags.bsPanelHeading,
         });
     };
 
     TransformTags.bsPanel = function(elem, tagName) {
-        var typ = tagName.split(/-/)[1];
+        var typ = tagName.split(/-/)[1].toLowerCase();
         var typ4 = {
-            'LIGHT': 'INFO',
-            'DARK': 'PRIMARY',
-            'SECONDARY': 'DEFAULT',
+            'light': 'info',
+            'dark': 'primary',
+            'secondary': 'default',
         };
-        // Translate new type of cards to existing type of panels.
+        // Translate new type of cards to the existing type of panels.
         if (typeof typ4[typ] !== 'undefined') {
             typ = typ4[typ];
         }
-        return this.tagNameToClassName(elem, 'PANEL-' + typ).addClass('panel');
+        return this.toTag(elem, 'div', 'panel panel-' + typ);
+    };
+
+    TransformTags.bsPanelHeading = function(elem, tagName) {
+        return this.toTag(elem, 'div', 'panel-heading');
     };
 
 }(App.TransformTags.prototype);
