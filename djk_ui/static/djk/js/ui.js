@@ -15,6 +15,7 @@ void function(TransformTags) {
             'CARD-LIGHT': TransformTags.bsPanel,
             'CARD-DARK': TransformTags.bsPanel,
             'CARD-HEADER': TransformTags.bsPanelHeading,
+            'CARD-BODY': TransformTags.bsPanelBody,
         });
     };
 
@@ -34,6 +35,10 @@ void function(TransformTags) {
 
     TransformTags.bsPanelHeading = function(elem, tagName) {
         return this.toTag(elem, 'div', 'panel-heading');
+    };
+
+    TransformTags.bsPanelBody = function(elem, tagName) {
+        return this.toTag(elem, 'div', 'panel-body');
     };
 
 }(App.TransformTags.prototype);
