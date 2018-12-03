@@ -6,7 +6,7 @@
 {% endblock head -%}
 </head>
 <body>
-    {% block body -%}
+{% block body -%}
     <header class="col-md-2">
         <nav class="navbar navbar-default nav-main" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -40,9 +40,9 @@
             {% endblock main -%}
         </div>
     </main>
-    {% endblock body -%}
-	{% include 'base_bottom_scripts.htm' -%}
-    {% block bottom_scripts -%}
-    {% endblock bottom_scripts -%}
+{% endblock body -%}
+{% include 'base_bottom_scripts.htm' -%}
+{% block bottom_scripts -%}
+{% endblock bottom_scripts -%}
 </body>
 </html>

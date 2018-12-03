@@ -57,5 +57,13 @@ App.transformTags = new App.TransformTags();
 
 App.ui = {
     cardTitleSelector: '.panel-title:first',
+    highlightNav: function(anchor, highlight) {
+        var $li = $(anchor).parent('li');
+        if (highlight) {
+            $li.addClass('active');
+        } else {
+            $li.removeClass('active');
+        }
+    },
 };
 
