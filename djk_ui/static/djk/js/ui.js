@@ -18,6 +18,7 @@ void function(TransformTags) {
             'CARD-BODY': TransformTags.bsPanelBody,
             'CARD-FOOTER': TransformTags.bsPanelFooter,
             'CARD-TITLE': TransformTags.bsPanelTitle,
+            'FORM-INLINE': TransformTags.formInline,
             'NAVBAR-DEFAULT': TransformTags.navbarDefault,
         });
     };
@@ -50,6 +51,10 @@ void function(TransformTags) {
 
     TransformTags.bsPanelTitle = function(elem, tagName) {
         return this.toTag(elem, 'div', 'panel-title');
+    };
+
+    TransformTags.formInline = function(elem, tagName) {
+        return this.toTag(elem, 'form', 'navbar-form navbar-left');
     };
 
     TransformTags.navbarDefault = function(elem, tagName) {
