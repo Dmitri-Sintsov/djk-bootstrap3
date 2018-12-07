@@ -96,7 +96,13 @@ void function(TransformTags) {
 
 App.transformTags = new App.TransformTags();
 
+/**
+ * Does not provide the full abstraction layer, only minimizes the difference between bs3 and bs4 API.
+ */
 App.ui = {
+    disposePopover: function($elem) {
+        return $elem.popover('destroy');
+    },
     getCardTitle: function($elements) {
         return $elements.find('.panel-title:first');
     },
