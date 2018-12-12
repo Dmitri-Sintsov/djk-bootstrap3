@@ -101,6 +101,7 @@ App.transformTags = new App.TransformTags();
  */
 App.ui = {
     defaultDialogSize: BootstrapDialog.SIZE_NORMAL,
+    dialogBlockTags: App.blockTags.badges,
     disposePopover: function($elem) {
         return $elem.popover('destroy');
     },
