@@ -159,12 +159,43 @@ App.ui.DatetimeWidget = function() {};
 
 void function(DatetimeWidget) {
 
-    DatetimeWidget.wrapDateControls = function() {
-        var hash = 'dtp-' + $.randomHash();
-        this.$dateControls.wrap('<div class="input-group date datetimepicker" id="' + hash + '" data-target-input="nearest"></div>');
+    DatetimeWidget.init = function() {
+        if (!this.has()) {
+            return;
+        }
+        this.$dateControls.wrap('<div class="input-group date datetimepicker"></div>');
         this.$dateControls.after(
-            '<div class="input-group-append input-group-addon pointer" data-target="#' + hash + '" data-toggle="datetimepicker"><div class="input-group-text glyphicon glyphicon-calendar"></div></div>'
+            '<div class="input-group-append input-group-addon pointer"><div class="input-group-text glyphicon glyphicon-calendar"></div></div>'
         );
+        var formatFix = App.propGet(this.formatFixes, App.conf.languageCode);
+        // Date field widget.
+        var options = {
+            pickTime: false,
+            language: App.conf.languageCode,
+            icons: {
+                date: 'calendar'
+            }
+        };
+        if (formatFix !== undefined) {
+            options.format = formatFix.date;
+        }
+        this.$parent.find('.date-control').datetimepicker(options);
+        // Datetime field widget.
+        options = {
+            language: App.conf.languageCode,
+            icons: {
+                date: 'calendar'
+            }
+        };
+        if (formatFix !== undefined) {
+            options.format = formatFix.datetime;
+        }
+        this.$parent.find('.datetime-control').datetimepicker(options);
+        // Picker window button help.
+        this.$parent.find('.picker-switch').prop('title', App.trans('Choose year / decade.'));
+        // Icon clicking.
+        this.$dateControls.next('.input-group-append').on('click', DatetimeWidget.open);
+        return this;
     };
 
 }(App.ui.DatetimeWidget.prototype);
