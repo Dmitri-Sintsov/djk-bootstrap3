@@ -153,3 +153,18 @@ App.ui = {
     labelClass: 'label',
     version: 3,
 };
+
+
+App.ui.DatetimeWidget = function() {};
+
+void function(DatetimeWidget) {
+
+    DatetimeWidget.wrapDateControls = function() {
+        var hash = 'dtp-' + $.randomHash();
+        this.$dateControls.wrap('<div class="input-group date datetimepicker" id="' + hash + '" data-target-input="nearest"></div>');
+        this.$dateControls.after(
+            '<div class="input-group-append input-group-addon pointer" data-target="#' + hash + '" data-toggle="datetimepicker"><div class="input-group-text glyphicon glyphicon-calendar"></div></div>'
+        );
+    };
+
+}(App.ui.DatetimeWidget.prototype);
