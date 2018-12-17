@@ -1,9 +1,4 @@
-.glyphicon {
-	top: 0;
-}
-
 form .form-optional .panel .panel-heading,
 form .form-empty .panel .panel-heading {
 	opacity: 0.8;
 }
-
