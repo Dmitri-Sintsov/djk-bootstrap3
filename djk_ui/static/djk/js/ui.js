@@ -103,7 +103,9 @@ App.ui = {
     defaultDialogSize: BootstrapDialog.SIZE_NORMAL,
     dialogBlockTags: App.blockTags.badges,
     disposePopover: function($elem) {
-        return $elem.popover('destroy');
+        if (typeof $elem.popover === 'function') {
+            return $elem.popover('destroy');
+        }
     },
     getCardTitle: function($elements) {
         return $elements.find('.panel-title:first');
