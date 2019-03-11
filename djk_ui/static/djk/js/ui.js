@@ -36,6 +36,7 @@ void function(TransformTags) {
     TransformTags.init = function() {
         this._init();
         this.add({
+            'CARD': TransformTags.bsPanel,
             'CARD-DEFAULT': TransformTags.bsPanel,
             'CARD-PRIMARY': TransformTags.bsPanel,
             'CARD-SUCCESS': TransformTags.bsPanel,
@@ -55,7 +56,12 @@ void function(TransformTags) {
     };
 
     TransformTags.bsPanel = function(elem, tagName) {
-        var typ = tagName.split(/-/)[1].toLowerCase();
+        if (elem.hasAttribute('type')) {
+            var typ = elem.getAttribute('type');
+            elem.removeAttribute('type');
+        } else {
+            var typ = tagName.split(/-/)[1].toLowerCase();
+        }
         var typ4 = {
             'light': 'info',
             'dark': 'primary',
