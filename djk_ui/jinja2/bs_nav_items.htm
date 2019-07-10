@@ -3,18 +3,25 @@
     {% set navs = [] -%}
 {% endif -%}
 {% for nav in navs -%}
-    {% set atts = {} -%}
-    {% if nav.atts is defined -%}
-        {% do atts.update(nav.atts) -%}
-    {% endif -%}
+    {% set a_atts = {} -%}
+    {% set li_atts = {} -%}
     {% if nav.tooltip -%}
-        {% do atts.update({
+        {% do li_atts.update({
             'data-toggle': 'tooltip',
             'data-placement': 'bottom',
             'title': nav.tooltip
         }) -%}
     {% endif -%}
-    <li{{ tpl.json_flatatt(atts) }}><a href="{{ nav.url }}">{{ nav.text }}</a></li>
+    {% if nav.atts is defined -%}
+        {% do li_atts.update(nav.atts) -%}
+    {% endif -%}
+    {% if nav.url is defined -%}
+        {% do a_atts.update({'href': nav.url}) -%}
+    {% else -%}
+        {% do tpl.add_css_classes_to_dict(li_atts, 'disabled') -%}
+    {% endif -%}
+
+    <li{{ tpl.json_flatatt(li_atts) }}><a{{ tpl.json_flatatt(a_atts) }}>{{ nav.text }}</a></li>
 {% endfor -%}
 {% endmacro -%}
 {% if _render_ -%}
