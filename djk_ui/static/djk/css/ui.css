@@ -813,6 +813,116 @@
 	font-size: 14px;
 }
 
+/* Helper classes from Bootstrap 4 */
+.bg-secondary {
+	background-color:#6c757d!important;
+}
+.bg-light{
+	background-color:#f8f9fa!important;
+}
+.bg-dark {
+	background-color:#343a40!important;
+}
+.text-secondary{
+	color:#6c757d!important;
+}
+.text-light{
+	color:#f8f9fa!important;
+}
+.text-dark{
+	color:#343a40!important;
+}
+
+/* Alerts with Bootstrap 4 default colors */
+.alert-secondary {
+	color: #383d41;
+	background-color: #e2e3e5;
+	border-color: #d6d8db;
+}
+.alert-light {
+	color: #818182;
+	background-color: #fefefe;
+	border-color: #fdfdfe;
+}
+.alert-dark {
+	color: #1b1e21;
+	background-color: #d6d8d9;
+	border-color: #c6c8ca;
+}
+
+/* List group items with Bootstrap 4 colors */
+.list-group-item-secondary {
+	background-color: #d6d8db;
+}
+a.list-group-item-secondary {
+	color: #383d41;
+}
+.list-group-item-light {
+	background-color: #fdfdfe;
+}
+a.list-group-item-light {
+	color: #818182;
+}
+.list-group-item-dark {
+	background-color: #c6c8ca;
+}
+a.list-group-item-dark {
+	color: #1b1e21;
+}
+
+/* Badges with Bootstrap 3 default colors */
+.badge-default {
+	background-color: #777;
+}
+.badge-primary {
+	background-color: #428bca;
+}
+.badge-success {
+	background-color: #5cb85c;
+}
+.badge-info {
+	background-color: #5bc0de;
+}
+.badge-warning {
+	background-color: #f0ad4e;
+}
+.badge-danger {
+	background-color: #d9534f;
+}
+/* Badges with Bootstrap 4 default colors */
+.badge-secondary {
+	background-color: #6c757d;
+}
+.badge-light {
+	color: #212529;
+	background-color: #f8f9fa;
+}
+.badge-dark {
+	background-color: #343a40;
+}
+
+/* Buttons with Bootstrap 4 default colors */
+.btn-secondary {
+	color: #fff;
+	background-color: #6c757d;
+	border-color: #6c757d;
+}
+.btn-light {
+	color: #212529;
+	background-color: #f8f9fa;
+	border-color: #f8f9fa;
+}
+.btn-dark {
+	color: #fff;
+	background-color: #343a40;
+	border-color: #343a40;
+}
+.btn-link {
+	font-weight: 400;
+	color: #007bff;
+	background-color: transparent;
+}
+
 a.sort-asc:before {
 	content: "\e093";
 }
