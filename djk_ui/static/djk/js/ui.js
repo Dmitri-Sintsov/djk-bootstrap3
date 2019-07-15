@@ -62,15 +62,6 @@ void function(TransformTags) {
         } else {
             var typ = tagName.split(/-/)[1].toLowerCase();
         }
-        var typ4 = {
-            'light': 'info',
-            'dark': 'primary',
-            'secondary': 'default',
-        };
-        // Translate new type of cards to the existing type of panels.
-        if (typeof typ4[typ] !== 'undefined') {
-            typ = typ4[typ];
-        }
         return this.toTag(elem, 'div', 'panel panel-' + typ);
     };
 

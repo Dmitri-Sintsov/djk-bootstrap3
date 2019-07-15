@@ -815,22 +815,22 @@
 
 /* Helper classes from Bootstrap 4 */
 .bg-secondary {
-	background-color:#6c757d!important;
+	background-color: #6c757d!important;
 }
 .bg-light{
-	background-color:#f8f9fa!important;
+	background-color: #f8f9fa!important;
 }
 .bg-dark {
-	background-color:#343a40!important;
+	background-color: #343a40!important;
 }
 .text-secondary{
-	color:#6c757d!important;
+	color: #6c757d!important;
 }
 .text-light{
-	color:#f8f9fa!important;
+	color: #f8f9fa!important;
 }
 .text-dark{
-	color:#343a40!important;
+	color: #343a40!important;
 }
 
 /* Alerts with Bootstrap 4 default colors */
@@ -921,6 +921,23 @@ a.list-group-item-dark {
 	font-weight: 400;
 	color: #007bff;
 	background-color: transparent;
+}
+
+/* Panels with Bootstrap 4 default colors */
+.panel-secondary > .panel-heading {
+	color: #fff;
+	background-color: #6c757d;
+	border-color: #6c757d;
+}
+.panel-light > .panel-heading {
+	color: #000;
+	background-color: #f8f9fa;
+	border-color: #f8f9fa;
+}
+.panel-dark > .panel-heading {
+	color: #fff;
+	background-color: #343a40;
+	border-color: #343a40;
 }
 
 a.sort-asc:before {
