@@ -46,6 +46,7 @@ void function(TransformTags) {
             'CARD-SECONDARY': TransformTags.bsPanel,
             'CARD-LIGHT': TransformTags.bsPanel,
             'CARD-DARK': TransformTags.bsPanel,
+            'CARD-GROUP': TransformTags.bsPanelGroup,
             'CARD-HEADER': TransformTags.bsPanelHeading,
             'CARD-BODY': TransformTags.bsPanelBody,
             'CARD-FOOTER': TransformTags.bsPanelFooter,
@@ -63,6 +64,10 @@ void function(TransformTags) {
             var typ = tagName.split(/-/)[1].toLowerCase();
         }
         return this.toTag(elem, 'div', 'panel panel-' + typ);
+    };
+
+    TransformTags.bsPanelGroup = function(elem, tagName) {
+        return this.toTag(elem, 'div', 'panel-group');
     };
 
     TransformTags.bsPanelHeading = function(elem, tagName) {
