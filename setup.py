@@ -30,7 +30,6 @@ if sys.argv[-1] == 'tag':
     sys.exit()
 
 readme = open('README.rst').read()
-history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 # http://stackoverflow.com/questions/14399534/how-can-i-reference-requirements-txt-for-the-install-requires-kwarg-in-setuptool
 with open('requirements.txt', 'r') as f:
@@ -44,7 +43,8 @@ setup(
     name='djk-bootstrap3',
     version=version,
     description="""Bootstrap 3 UI for django-jinja-knockout.""",
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
+    long_description_content_type='text/x-rst',
     author='Dmitriy Sintsov',
     author_email='questpc256@gmail.com',
     url='https://github.com/Dmitri-Sintsov/djk-bootstrap3',
