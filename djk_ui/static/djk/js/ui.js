@@ -1,4 +1,13 @@
-App.blockTags = {
+/**
+ * Does not provide the full abstraction layer, only minimizes the difference between bs3 and bs4 API.
+ */
+
+import { propGet, newClassByPath } from './prop.js';
+import { AppConf } from './conf.js';
+import { Trans } from './translate.js';
+import { TransformTags } from './transformtags.js';
+
+var blockTags = {
     list: [
         {
             enclosureTag: '<ul>',
@@ -94,24 +103,104 @@ void function(TransformTags) {
         return this.toTag(elem, 'nav', 'nav navbar navbar-default');
     };
 
-}(App.TransformTags.prototype);
+}(TransformTags.prototype);
 
-App.transformTags = new App.TransformTags();
+var transformTags = new TransformTags();
 
-/**
- * Does not provide the full abstraction layer, only minimizes the difference between bs3 and bs4 API.
- */
-App.ui = {
-    defaultDialogSize: BootstrapDialog.SIZE_NORMAL,
-    dialogBlockTags: App.blockTags.badges,
-    disposePopover: function($elem) {
-        if (typeof $elem.popover === 'function') {
-            return $elem.popover('destroy');
+function disposePopover($elem) {
+    if (typeof $elem.popover === 'function') {
+        return $elem.popover('destroy');
+    }
+};
+
+function highlightNav(anchor, highlight) {
+    var $li = $(anchor).parent('li');
+    if (highlight) {
+        $li.addClass('active');
+    } else {
+        $li.removeClass('active');
+    }
+};
+
+function getCardTitle($elements) {
+    return $elements.find('.panel-title:first');
+};
+
+function BaseDatetimeWidget() {};
+
+void function(BaseDatetimeWidget) {
+
+    BaseDatetimeWidget.wrap = function() {
+        this.$dateControls.wrap('<div class="input-group date datetimepicker"></div>');
+        this.$dateControls.after(
+            '<div class="input-group-append input-group-addon pointer"><div class="input-group-text glyphicon glyphicon-calendar"></div></div>'
+        );
+    };
+
+    BaseDatetimeWidget.init = function() {
+        if (!this.has()) {
+            return;
         }
-    },
-    getCardTitle: function($elements) {
-        return $elements.find('.panel-title:first');
-    },
+        this.wrap();
+        var formatFix = propGet(this.formatFixes, AppConf('languageCode'));
+        // Date field widget.
+        var options = {
+            pickTime: false,
+            language: AppConf('languageCode'),
+            icons: {
+                date: 'calendar'
+            }
+        };
+        if (formatFix !== undefined) {
+            options.format = formatFix.date;
+        }
+        this.$dateControls.filter('.date-control').datetimepicker(options);
+        // Datetime field widget.
+        options = {
+            language: AppConf('languageCode'),
+            icons: {
+                date: 'calendar'
+            }
+        };
+        if (formatFix !== undefined) {
+            options.format = formatFix.datetime;
+        }
+        this.$dateControls.filter('.datetime-control').datetimepicker(options);
+        // Picker window button help.
+        this.$selector.find('.picker-switch').prop('title', Trans('Choose year / decade.'));
+        // Icon clicking.
+        this.$dateControls.next('.input-group-append').on('click', BaseDatetimeWidget.open);
+        return this;
+    };
+
+    // Does not restore DOM into original state, just prevents memory leaks.
+    BaseDatetimeWidget.destroy = function() {
+        if (!this.has()) {
+            return;
+        }
+        this.$dateControls.next('.input-group-append').off('click', BaseDatetimeWidget.open);
+        // https://github.com/Eonasdan/bootstrap-datetimepicker/issues/573
+        _.each(this.$selector.find('.datetime-control, .date-control'), function(v) {
+            var dtp = $(v).data("DateTimePicker");
+            // If $.datetimepicker() was added dynamically as empty_form of inline formset,
+            // there is no related instance stored in html5 data.
+            if (dtp !== undefined) {
+                dtp.widget.remove();
+            } else {
+                /*
+                $(v).datetimepicker({language: AppConf('languageCode')});
+                var dtp = $(v).data("DateTimePicker");
+                dtp.widget.remove();
+                */
+            }
+        });
+    };
+
+}(BaseDatetimeWidget.prototype);
+
+var ui = {
+    defaultDialogSize: BootstrapDialog.SIZE_NORMAL,
+    dialogBlockTags: blockTags.badges,
     // Currently available highlight directions:
     //   0 - do not highlight,
     //   1 - highlight columns,
@@ -146,87 +235,8 @@ App.ui = {
             }
         },
     ],
-    highlightNav: function(anchor, highlight) {
-        var $li = $(anchor).parent('li');
-        if (highlight) {
-            $li.addClass('active');
-        } else {
-            $li.removeClass('active');
-        }
-    },
     labelClass: 'label',
     version: 3,
 };
 
-
-App.ui.DatetimeWidget = function() {};
-
-void function(DatetimeWidget) {
-
-    DatetimeWidget.wrap = function() {
-        this.$dateControls.wrap('<div class="input-group date datetimepicker"></div>');
-        this.$dateControls.after(
-            '<div class="input-group-append input-group-addon pointer"><div class="input-group-text glyphicon glyphicon-calendar"></div></div>'
-        );
-    };
-
-    DatetimeWidget.init = function() {
-        if (!this.has()) {
-            return;
-        }
-        this.wrap();
-        var formatFix = App.propGet(this.formatFixes, App.conf.languageCode);
-        // Date field widget.
-        var options = {
-            pickTime: false,
-            language: App.conf.languageCode,
-            icons: {
-                date: 'calendar'
-            }
-        };
-        if (formatFix !== undefined) {
-            options.format = formatFix.date;
-        }
-        this.$dateControls.filter('.date-control').datetimepicker(options);
-        // Datetime field widget.
-        options = {
-            language: App.conf.languageCode,
-            icons: {
-                date: 'calendar'
-            }
-        };
-        if (formatFix !== undefined) {
-            options.format = formatFix.datetime;
-        }
-        this.$dateControls.filter('.datetime-control').datetimepicker(options);
-        // Picker window button help.
-        this.$selector.find('.picker-switch').prop('title', App.trans('Choose year / decade.'));
-        // Icon clicking.
-        this.$dateControls.next('.input-group-append').on('click', DatetimeWidget.open);
-        return this;
-    };
-
-    // Does not restore DOM into original state, just prevents memory leaks.
-    DatetimeWidget.destroy = function() {
-        if (!this.has()) {
-            return;
-        }
-        this.$dateControls.next('.input-group-append').off('click', DatetimeWidget.open);
-        // https://github.com/Eonasdan/bootstrap-datetimepicker/issues/573
-        _.each(this.$selector.find('.datetime-control, .date-control'), function(v) {
-            var dtp = $(v).data("DateTimePicker");
-            // If $.datetimepicker() was added dynamically as empty_form of inline formset,
-            // there is no related instance stored in html5 data.
-            if (dtp !== undefined) {
-                dtp.widget.remove();
-            } else {
-                /*
-                $(v).datetimepicker({language: App.conf.languageCode});
-                var dtp = $(v).data("DateTimePicker");
-                dtp.widget.remove();
-                */
-            }
-        });
-    };
-
-}(App.ui.DatetimeWidget.prototype);
+export { blockTags, transformTags, disposePopover, highlightNav, getCardTitle, BaseDatetimeWidget, ui };
