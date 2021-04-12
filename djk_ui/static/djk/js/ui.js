@@ -2,6 +2,7 @@
  * Does not provide the full abstraction layer, only minimizes the difference between bs3 and bs4 API.
  */
 
+import { each } from './lib/underscore-esm.js';
 import { propGet, newClassByPath } from './prop.js';
 import { AppConf } from './conf.js';
 import { Trans } from './translate.js';
@@ -180,7 +181,7 @@ void function(BaseDatetimeWidget) {
         }
         this.$dateControls.next('.input-group-append').off('click', BaseDatetimeWidget.open);
         // https://github.com/Eonasdan/bootstrap-datetimepicker/issues/573
-        _.each(this.$selector.find('.datetime-control, .date-control'), function(v) {
+        each(this.$selector.find('.datetime-control, .date-control'), function(v) {
             var dtp = $(v).data("DateTimePicker");
             // If $.datetimepicker() was added dynamically as empty_form of inline formset,
             // there is no related instance stored in html5 data.
