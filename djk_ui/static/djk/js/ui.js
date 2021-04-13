@@ -3,7 +3,7 @@
  */
 
 import { each } from './lib/underscore-esm.js';
-import { propGet, newClassByPath } from './prop.js';
+import { propGet } from './prop.js';
 import { AppConf } from './conf.js';
 import { Trans } from './translate.js';
 import { TransformTags } from './transformtags.js';
@@ -127,18 +127,18 @@ function getCardTitle($elements) {
     return $elements.find('.panel-title:first');
 };
 
-function BaseDatetimeWidget() {};
+function UiDatetimeWidget() {
 
-void function(BaseDatetimeWidget) {
+} void function(UiDatetimeWidget) {
 
-    BaseDatetimeWidget.wrap = function() {
+    UiDatetimeWidget.wrap = function() {
         this.$dateControls.wrap('<div class="input-group date datetimepicker"></div>');
         this.$dateControls.after(
             '<div class="input-group-append input-group-addon pointer"><div class="input-group-text glyphicon glyphicon-calendar"></div></div>'
         );
     };
 
-    BaseDatetimeWidget.init = function() {
+    UiDatetimeWidget.init = function() {
         if (!this.has()) {
             return;
         }
@@ -170,16 +170,16 @@ void function(BaseDatetimeWidget) {
         // Picker window button help.
         this.$selector.find('.picker-switch').prop('title', Trans('Choose year / decade.'));
         // Icon clicking.
-        this.$dateControls.next('.input-group-append').on('click', BaseDatetimeWidget.open);
+        this.$dateControls.next('.input-group-append').on('click', UiDatetimeWidget.open);
         return this;
     };
 
     // Does not restore DOM into original state, just prevents memory leaks.
-    BaseDatetimeWidget.destroy = function() {
+    UiDatetimeWidget.destroy = function() {
         if (!this.has()) {
             return;
         }
-        this.$dateControls.next('.input-group-append').off('click', BaseDatetimeWidget.open);
+        this.$dateControls.next('.input-group-append').off('click', UiDatetimeWidget.open);
         // https://github.com/Eonasdan/bootstrap-datetimepicker/issues/573
         each(this.$selector.find('.datetime-control, .date-control'), function(v) {
             var dtp = $(v).data("DateTimePicker");
@@ -197,7 +197,7 @@ void function(BaseDatetimeWidget) {
         });
     };
 
-}(BaseDatetimeWidget.prototype);
+}(UiDatetimeWidget.prototype);
 
 var ui = {
     defaultDialogSize: BootstrapDialog.SIZE_NORMAL,
@@ -240,4 +240,4 @@ var ui = {
     version: 3,
 };
 
-export { blockTags, transformTags, disposePopover, highlightNav, getCardTitle, BaseDatetimeWidget, ui };
+export { blockTags, transformTags, disposePopover, highlightNav, getCardTitle, UiDatetimeWidget, ui };
