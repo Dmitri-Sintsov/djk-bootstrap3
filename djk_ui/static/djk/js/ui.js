@@ -5,6 +5,7 @@
 import { each } from './lib/underscore-esm.js';
 import { propGet } from './prop.js';
 import { AppConf } from './conf.js';
+import { elements } from './elements.js';
 import { Trans } from './translate.js';
 import { TransformTags } from './transformtags.js';
 
@@ -39,31 +40,100 @@ var blockTags = {
     ]
 };
 
+var cardTagDef = {
+    classes: ['panel'],
+    getCardType: function() {
+        if (this.hasAttribute('type')) {
+            return this.getAttribute('type');
+        } else {
+            return this.tagName.split(/-/)[1].toLowerCase();
+        }
+    },
+    connected: function() {
+        this.classList.add('panel-' + this.getCardType());
+    },
+    attributeChanged: {
+        type: function(oldValue, newValue) {
+            this.classList.remove('panel-' + oldValue);
+            this.classList.add('panel-' + newValue);
+        }
+    }
+};
+
+elements.newBlockElements(
+    $.extend({name: 'card-type'}, cardTagDef),
+    $.extend({name: 'card-default'}, cardTagDef),
+    $.extend({name: 'card-primary'}, cardTagDef),
+    $.extend({name: 'card-success'}, cardTagDef),
+    $.extend({name: 'card-info'}, cardTagDef),
+    $.extend({name: 'card-warning'}, cardTagDef),
+    $.extend({name: 'card-danger'}, cardTagDef),
+    $.extend({name: 'card-secondary'}, cardTagDef),
+    $.extend({name: 'card-light'}, cardTagDef),
+    $.extend({name: 'card-dark'}, cardTagDef),
+    {
+        name: 'card-group',
+        classes: ['panel-group']
+    },
+    {
+        name: 'card-header',
+        classes: ['panel-heading']
+    },
+    {
+        name: 'card-body',
+        classes: ['panel-body']
+    },
+    {
+        name: 'card-footer',
+        classes: ['panel-footer']
+    },
+    {
+        name: 'card-title',
+        classes: ['panel-title']
+    },
+    {
+        name: 'navbar-default',
+        classes: ['nav', 'navbar', 'navbar-default']
+    },
+    /*
+    // Inherited custom elements are not supported yet.
+    {
+        ancestor: HTMLFormElement,
+        name: 'form-inline',
+        extendsTagName: 'form',
+        classes: ['navbar-form', 'navbar-left']
+    }
+    */
+);
+
 void function(TransformTags) {
 
     TransformTags._init = TransformTags.init;
 
     TransformTags.init = function() {
         this._init();
-        this.add({
-            'CARD': TransformTags.bsPanel,
-            'CARD-DEFAULT': TransformTags.bsPanel,
-            'CARD-PRIMARY': TransformTags.bsPanel,
-            'CARD-SUCCESS': TransformTags.bsPanel,
-            'CARD-INFO': TransformTags.bsPanel,
-            'CARD-WARNING': TransformTags.bsPanel,
-            'CARD-DANGER': TransformTags.bsPanel,
-            'CARD-SECONDARY': TransformTags.bsPanel,
-            'CARD-LIGHT': TransformTags.bsPanel,
-            'CARD-DARK': TransformTags.bsPanel,
-            'CARD-GROUP': TransformTags.bsPanelGroup,
-            'CARD-HEADER': TransformTags.bsPanelHeading,
-            'CARD-BODY': TransformTags.bsPanelBody,
-            'CARD-FOOTER': TransformTags.bsPanelFooter,
-            'CARD-TITLE': TransformTags.bsPanelTitle,
-            'FORM-INLINE': TransformTags.formInline,
-            'NAVBAR-DEFAULT': TransformTags.navbarDefault,
-        });
+        if (AppConf('compatTransformTags')) {
+            this.add({
+                'CARD-TYPE': TransformTags.bsPanel,
+                'CARD-DEFAULT': TransformTags.bsPanel,
+                'CARD-PRIMARY': TransformTags.bsPanel,
+                'CARD-SUCCESS': TransformTags.bsPanel,
+                'CARD-INFO': TransformTags.bsPanel,
+                'CARD-WARNING': TransformTags.bsPanel,
+                'CARD-DANGER': TransformTags.bsPanel,
+                'CARD-SECONDARY': TransformTags.bsPanel,
+                'CARD-LIGHT': TransformTags.bsPanel,
+                'CARD-DARK': TransformTags.bsPanel,
+                'CARD-GROUP': TransformTags.bsPanelGroup,
+                'CARD-HEADER': TransformTags.bsPanelHeading,
+                'CARD-BODY': TransformTags.bsPanelBody,
+                'CARD-FOOTER': TransformTags.bsPanelFooter,
+                'CARD-TITLE': TransformTags.bsPanelTitle,
+                'NAVBAR-DEFAULT': TransformTags.navbarDefault,
+            });
+        }
+        // Inherited custom elements v1 do not work yet.
+        this.add({'FORM-INLINE': TransformTags.formInline});
     };
 
     TransformTags.bsPanel = function(elem, tagName) {
