@@ -889,15 +889,18 @@ a.list-group-item-dark {
 .badge-danger {
 	background-color: #d9534f;
 }
-/* Badges with Bootstrap 4 default colors */
-.badge-secondary {
+/* Badges / labels with Bootstrap 4 default colors */
+.badge-secondary,
+.label-secondary {
 	background-color: #6c757d;
 }
-.badge-light {
+.badge-light,
+.label-light {
 	color: #212529;
 	background-color: #f8f9fa;
 }
-.badge-dark {
+.badge-dark,
+.label-dark {
 	background-color: #343a40;
 }
 
