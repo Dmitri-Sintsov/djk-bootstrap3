@@ -89,12 +89,12 @@ var dismissButtonTagDef = {
     ancestor: HTMLButtonElement,
     extendsTagName: 'button',
     classes: ['close'],
-    styles: {
-        'text-decoration': 'none',
-        'border': 'none',
-        'opacity': '1',
-        'background-color': 'transparent',
-    },
+    styles: [
+        {'text-decoration': 'none'},
+        {'border': 'none'},
+        {'opacity': '1'},
+        {'background-color': 'transparent'},
+    ],
     attrs: {
             'aria-label': 'Close',
     },
