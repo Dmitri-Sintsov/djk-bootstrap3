@@ -198,7 +198,7 @@ void function(TransformTags) {
 
     TransformTags.init = function() {
         this._init();
-         this.addAttrs({
+        this.addAttrs({
             'bs-data': function(elem, attrName) {
                 var attrsToRemove = [attrName];
                 for (var i = 0; i < elem.attributes.length; i++) {
@@ -219,7 +219,7 @@ void function(TransformTags) {
             }
         });
         if (AppConf('compatTransformTags')) {
-            this.add({
+            this.addTags({
                 'CARD-TYPE': TransformTags.bsPanel,
                 'CARD-DEFAULT': TransformTags.bsPanel,
                 'CARD-PRIMARY': TransformTags.bsPanel,
@@ -327,17 +327,6 @@ function UiPopover($elem) {
                 options.html = this.isHTML(options);
             }
         }
-        /*
-        if (options.content instanceof jQuery) {
-            // Bootstrap 5 does not support rendering jQuery objects
-            if (options.content.length > 1) {
-                options.content = $('<div>').append(options.content);
-                options.content = options.content.children('*').get(0);
-            } else {
-                options.content = options.content.get(0);
-            }
-        }
-        */
         if (typeof options.template === 'string') {
             // Convert universal .bs-popover-body to bs3 .popover-content
             var $template = $.contents(options.template);
@@ -409,7 +398,6 @@ function UiPopover($elem) {
         if (this.popover) {
             for (var opt in opts) {
                 if (opts.hasOwnProperty(opt)) {
-                    // $(this.elem).data('bs.popover').options[opt] = opts[opt];
                     this.popover.options[opt] = opts[opt];
                 }
             }
