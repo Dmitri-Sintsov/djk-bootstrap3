@@ -189,7 +189,7 @@ elements.newCustomElements(
     {
         name: 'navbar-default',
         classes: ['nav', 'navbar', 'navbar-default']
-    },
+    }
 );
 
 void function(TransformTags) {
